@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.building.ipi.web.system.user.dao.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.building.ipi.web.system.user.model.SysUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="data_permission_type" property="dataPermissionType" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="lastModified" property="lastmodified" jdbcType="TIMESTAMP" />
+    <result column="lastModifiedBy" property="lastmodifiedby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, username, password, salt, name, department_id, type, phone, email, state, data_permission_type, 
+    created, createdBy, lastModified, lastModifiedBy
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.building.ipi.web.system.user.model.SysUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.building.ipi.web.system.user.model.SysUserExample" >
+    delete from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.building.ipi.web.system.user.model.SysUser" >
+    insert into sys_user (id, username, password, 
+      salt, name, department_id, 
+      type, phone, email, 
+      state, data_permission_type, created, 
+      createdBy, lastModified, lastModifiedBy
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{dataPermissionType,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{createdby,jdbcType=VARCHAR}, #{lastmodified,jdbcType=TIMESTAMP}, #{lastmodifiedby,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.building.ipi.web.system.user.model.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="dataPermissionType != null" >
+        data_permission_type,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="lastmodified != null" >
+        lastModified,
+      </if>
+      <if test="lastmodifiedby != null" >
+        lastModifiedBy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPermissionType != null" >
+        #{dataPermissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodified != null" >
+        #{lastmodified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedby != null" >
+        #{lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.building.ipi.web.system.user.model.SysUserExample" resultType="java.lang.Integer" >
+    select count(*) from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentId != null" >
+        department_id = #{record.departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataPermissionType != null" >
+        data_permission_type = #{record.dataPermissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        createdBy = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastmodified != null" >
+        lastModified = #{record.lastmodified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifiedby != null" >
+        lastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user
+    set id = #{record.id,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      department_id = #{record.departmentId,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      data_permission_type = #{record.dataPermissionType,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      createdBy = #{record.createdby,jdbcType=VARCHAR},
+      lastModified = #{record.lastmodified,jdbcType=TIMESTAMP},
+      lastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.building.ipi.web.system.user.model.SysUser" >
+    update sys_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPermissionType != null" >
+        data_permission_type = #{dataPermissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodified != null" >
+        lastModified = #{lastmodified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedby != null" >
+        lastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.building.ipi.web.system.user.model.SysUser" >
+    update sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      data_permission_type = #{dataPermissionType,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      lastModified = #{lastmodified,jdbcType=TIMESTAMP},
+      lastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 用户登录验证查询 -->
+  <select id="authentication" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_user
+    where username = #{record.username,jdbcType=VARCHAR} and password = #{record.password,jdbcType=VARCHAR}
+  </select>
+  <!-- 用户列表 分页查询 -->
+  <select id="selectPageList" parameterType="java.lang.String" resultType="com.building.ipi.web.system.user.model.UserModel">
+    select u.id, u.username, u.name, u.department_id departmentId, u.phone, u.email, u.state, u.created,
+    u.createdBy, u.lastModified, u.lastModifiedBy,sd.name as type,r.role_name roleName,d.name departmentName
+    from sys_user_role s inner join sys_user u on(s.user_id=u.id) inner join sys_role r on(s.role_id=r.id)
+    left join sys_department d on(u.department_id=d.id) left join sys_dictionary sd on(u.type=sd.code)
+    where 1=1
+    <if test="param != null and param != ''">
+      AND (u.username LIKE CONCAT('%',#{param,jdbcType=VARCHAR},'%')
+      OR u.name LIKE CONCAT('%',#{param,jdbcType=VARCHAR},'%')
+      OR u.phone LIKE CONCAT('%',#{param,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="deptModel.deptId != null and deptModel.deptId != ''">
+      and u.department_id = #{deptModel.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="deptModel.deptIds != null and deptModel.deptIds.size()&gt;0">
+      and u.department_id in
+      <foreach collection="deptModel.deptIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    order by u.created desc
+  </select>
+  <!-- 获取用户详细信息 -->
+  <select id="getUserModel" parameterType="com.building.ipi.web.system.user.model.SysUser"
+          resultType="com.building.ipi.web.system.user.model.UserModel">
+    select u.id,u.username,u.password,u.salt,u.name,u.department_id departmentId,u.phone,u.email,u.type,
+           r.id roleId,r.role_name roleName,r.role_sign roleSign,d.serial_number serialNumber,d.name departmentName
+    from sys_user_role s inner join sys_user u on(s.user_id=u.id) inner join sys_role r on(s.role_id=r.id)
+    inner join sys_department d on(u.department_id=d.id)
+    where 1=1
+    <if test="record.username != null and record.username != ''">
+      AND u.username = #{record.username,jdbcType=VARCHAR}
+    </if>
+    <if test="record.id != null and record.id != ''">
+      AND u.id = #{record.id,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!-- 保存用户与角色对应关系信息 -->
+  <insert id="addUserRole" parameterType="java.lang.String">
+    insert into sys_user_role (id, user_id,role_id)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  <!-- 修改用户与角色对应关系信息 -->
+  <insert id="updateUserRole" parameterType="java.lang.String">
+    update sys_user_role set role_id = #{roleId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </insert>
+
+  <!-- 用户列表  -->
+  <select id="getUserList" parameterType="java.lang.String" resultType="com.building.ipi.web.system.user.model.UserModel">
+    select u.id, u.username, u.name, u.department_id departmentId, u.phone, u.email, u.state,d.name departmentName
+    from sys_user u left join sys_department d on(u.department_id=d.id)
+    where u.state = '1'
+    <if test="type != null and type != ''">
+      AND u.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="deptModel.deptId != null and deptModel.deptId != ''">
+      and u.department_id = #{deptModel.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="deptModel.deptIds != null and deptModel.deptIds.size()&gt;0">
+      and u.department_id in
+      <foreach collection="deptModel.deptIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    order by u.name desc
+  </select>
+
+</mapper>

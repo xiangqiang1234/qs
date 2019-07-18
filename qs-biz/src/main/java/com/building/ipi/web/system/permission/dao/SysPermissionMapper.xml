@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.building.ipi.web.system.permission.dao.SysPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.building.ipi.web.system.permission.model.SysPermission" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_sign" property="permissionSign" jdbcType="VARCHAR" />
+    <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pid, permission_name, permission_sign, sort_no, description, level
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.building.ipi.web.system.permission.model.SysPermissionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_permission
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_permission
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.building.ipi.web.system.permission.model.SysPermissionExample" >
+    delete from sys_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.building.ipi.web.system.permission.model.SysPermission" >
+    insert into sys_permission (id, pid, permission_name, 
+      permission_sign, sort_no, description, 
+      level)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, 
+      #{permissionSign,jdbcType=VARCHAR}, #{sortNo,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.building.ipi.web.system.permission.model.SysPermission" >
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="permissionName != null" >
+        permission_name,
+      </if>
+      <if test="permissionSign != null" >
+        permission_sign,
+      </if>
+      <if test="sortNo != null" >
+        sort_no,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionSign != null" >
+        #{permissionSign,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.building.ipi.web.system.permission.model.SysPermissionExample" resultType="java.lang.Integer" >
+    select count(*) from sys_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_permission
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionName != null" >
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionSign != null" >
+        permission_sign = #{record.permissionSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortNo != null" >
+        sort_no = #{record.sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_permission
+    set id = #{record.id,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=VARCHAR},
+      permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      permission_sign = #{record.permissionSign,jdbcType=VARCHAR},
+      sort_no = #{record.sortNo,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.building.ipi.web.system.permission.model.SysPermission" >
+    update sys_permission
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        permission_name = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionSign != null" >
+        permission_sign = #{permissionSign,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null" >
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.building.ipi.web.system.permission.model.SysPermission" >
+    update sys_permission
+    set pid = #{pid,jdbcType=VARCHAR},
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_sign = #{permissionSign,jdbcType=VARCHAR},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 通过角色id 查询角色 拥有的权限 -->
+  <select id="selectPermissionsByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT p.* FROM sys_permission p LEFT JOIN sys_role_permission rp ON rp.permission_id = p.id
+    WHERE rp.role_id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 列表查询 -->
+  <select id="selectPageList" parameterType="com.building.ipi.web.system.permission.model.SysPermission"
+          resultType="com.building.ipi.web.system.permission.model.SysPermissionModel">
+    select syper.*,CASE WHEN sysp.permission_name IS NULL THEN '' ELSE sysp.permission_name END as pidname from
+    sys_permission syper
+    LEFT join (select id,permission_name from sys_permission) as sysp ON sysp.id = syper.pid
+    WHERE 1=1
+    <if test="sysPermission.permissionName != null and sysPermission.permissionName != ''">
+      <![CDATA[
+			and syper.permission_name  like CONCAT('%',#{sysPermission.permissionName},'%')
+		  ]]>
+    </if>
+    <if test="sysPermission.level != null">
+      and syper.level = #{sysPermission.level,jdbcType=INTEGER}
+    </if>
+    <if test="sysPermission.pid != null and sysPermission.pid != ''">
+      and (syper.id = #{sysPermission.pid} or syper.pid = #{sysPermission.pid})
+    </if>
+    ORDER BY syper.sort_no ASC,syper.`level`
+  </select>
+  <!-- 查询树 -->
+  <select id="selectTree" parameterType="com.building.ipi.web.system.permission.model.SysPermission"
+          resultType="com.building.ipi.web.common.TreeModel">
+    select p.id,p.pid as pId,p.permission_name name,p.level
+    from sys_permission p
+    where 1=1
+    <if test="model.level != null">
+      <![CDATA[ and p.level <= #{model.level} ]]>
+    </if>
+    order by p.sort_no ASC
+  </select>
+
+  <!-- 查询单个数据 -->
+  <select id="selectOneById" resultType="com.building.ipi.web.system.permission.model.SysPermissionModel">
+    select syper.*,CASE WHEN sysp.permission_name IS NULL THEN '' ELSE sysp.permission_name END as pidname from
+    sys_permission syper
+    LEFT join (select id,permission_name from sys_permission) as sysp ON sysp.id = syper.pid
+    WHERE 1=1
+    <if test="id != null and id != ''">
+      and syper.id =#{id}
+    </if>
+  </select>
+  <!-- 通过角色ID 查询角色 拥有的权限 -->
+  <select id="getPermissionListByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select s.permission_sign
+    from sys_permission s inner join sys_role_permission rp on (rp.permission_id = s.id)
+    where rp.role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+</mapper>

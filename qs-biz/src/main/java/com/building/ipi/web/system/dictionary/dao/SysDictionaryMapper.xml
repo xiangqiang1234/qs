@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.building.ipi.web.system.dictionary.dao.SysDictionaryMapper">
+    <resultMap id="BaseResultMap" type="com.building.ipi.web.system.dictionary.model.SysDictionary">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="showText" property="showtext" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="isActive" property="isactive" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="createdBy" property="createdby" jdbcType="VARCHAR"/>
+        <result column="lastModified" property="lastmodified" jdbcType="TIMESTAMP"/>
+        <result column="lastModifiedBy" property="lastmodifiedby" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, pid, name, showText, code, value, isActive, description, created, createdBy, 
+    lastModified, lastModifiedBy
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.building.ipi.web.system.dictionary.model.SysDictionaryExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sys_dictionary
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dictionary
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_dictionary
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.building.ipi.web.system.dictionary.model.SysDictionaryExample">
+        delete from sys_dictionary
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.building.ipi.web.system.dictionary.model.SysDictionary">
+    insert into sys_dictionary (id, pid, name, 
+      showText, code, value, 
+      isActive, description, created, 
+      createdBy, lastModified, lastModifiedBy
+      )
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{showtext,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{createdby,jdbcType=VARCHAR}, #{lastmodified,jdbcType=TIMESTAMP}, #{lastmodifiedby,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.building.ipi.web.system.dictionary.model.SysDictionary">
+        insert into sys_dictionary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="showtext != null">
+                showText,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="isactive != null">
+                isActive,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="created != null">
+                created,
+            </if>
+            <if test="createdby != null">
+                createdBy,
+            </if>
+            <if test="lastmodified != null">
+                lastModified,
+            </if>
+            <if test="lastmodifiedby != null">
+                lastModifiedBy,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="showtext != null">
+                #{showtext,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                #{isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdby != null">
+                #{createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="lastmodified != null">
+                #{lastmodified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastmodifiedby != null">
+                #{lastmodifiedby,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.building.ipi.web.system.dictionary.model.SysDictionaryExample"
+            resultType="java.lang.Integer">
+        select count(*) from sys_dictionary
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sys_dictionary
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pid != null">
+                pid = #{record.pid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.showtext != null">
+                showText = #{record.showtext,jdbcType=VARCHAR},
+            </if>
+            <if test="record.code != null">
+                code = #{record.code,jdbcType=VARCHAR},
+            </if>
+            <if test="record.value != null">
+                value = #{record.value,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isactive != null">
+                isActive = #{record.isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="record.description != null">
+                description = #{record.description,jdbcType=VARCHAR},
+            </if>
+            <if test="record.created != null">
+                created = #{record.created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createdby != null">
+                createdBy = #{record.createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lastmodified != null">
+                lastModified = #{record.lastmodified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.lastmodifiedby != null">
+                lastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sys_dictionary
+        set id = #{record.id,jdbcType=VARCHAR},
+        pid = #{record.pid,jdbcType=VARCHAR},
+        name = #{record.name,jdbcType=VARCHAR},
+        showText = #{record.showtext,jdbcType=VARCHAR},
+        code = #{record.code,jdbcType=VARCHAR},
+        value = #{record.value,jdbcType=VARCHAR},
+        isActive = #{record.isactive,jdbcType=VARCHAR},
+        description = #{record.description,jdbcType=VARCHAR},
+        created = #{record.created,jdbcType=TIMESTAMP},
+        createdBy = #{record.createdby,jdbcType=VARCHAR},
+        lastModified = #{record.lastmodified,jdbcType=TIMESTAMP},
+        lastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.building.ipi.web.system.dictionary.model.SysDictionary">
+        update sys_dictionary
+        <set>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="showtext != null">
+                showText = #{showtext,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                value = #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                isActive = #{isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdby != null">
+                createdBy = #{createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="lastmodified != null">
+                lastModified = #{lastmodified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastmodifiedby != null">
+                lastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.building.ipi.web.system.dictionary.model.SysDictionary">
+    update sys_dictionary
+    set pid = #{pid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      showText = #{showtext,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      isActive = #{isactive,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      lastModified = #{lastmodified,jdbcType=TIMESTAMP},
+      lastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectPageList" parameterType="com.building.ipi.common.feature.orm.mybatis.Page"
+            resultType="com.building.ipi.web.system.dictionary.model.SysDictionary">
+        SELECT * FROM sys_dictionary WHERE 1=1
+        <if test="param!=null and param!=''">
+            AND name like  CONCAT('%',#{param},'%')
+        </if>
+        <if test="pid!=null and pid!=''">
+            AND pid=#{pid}
+        </if>
+        ORDER BY created asc
+    </select>
+
+    <select id="showLeftTree" resultType="com.building.ipi.web.common.TreeModel">
+      select p.id,p.pid as pId,p.name from sys_dictionary p
+  </select>
+
+    <select id="selectByOne" resultType="com.building.ipi.web.system.dictionary.model.SysDictionaryModel">
+        select syper.*,CASE WHEN sysp.name IS NULL THEN '' ELSE sysp.name END as pidname from
+        sys_dictionary syper
+        LEFT join (select id,name from sys_dictionary) as sysp ON sysp.id = syper.pid
+        WHERE 1=1
+        <if test="id != null and id != ''">
+            and syper.id =#{id}
+        </if>
+    </select>
+
+</mapper>

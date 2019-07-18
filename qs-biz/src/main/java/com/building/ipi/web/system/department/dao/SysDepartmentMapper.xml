@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.building.ipi.web.system.department.dao.SysDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.building.ipi.web.system.department.model.SysDepartment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="last_modified" property="lastModified" jdbcType="TIMESTAMP" />
+    <result column="last_modified_by" property="lastModifiedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pid, name, no, phone, serial_number, created, created_by, last_modified, last_modified_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.building.ipi.web.system.department.model.SysDepartmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_department
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_department
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.building.ipi.web.system.department.model.SysDepartmentExample" >
+    delete from sys_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.building.ipi.web.system.department.model.SysDepartment" >
+    insert into sys_department (id, pid, name, 
+      no, phone, serial_number, 
+      created, created_by, last_modified, 
+      last_modified_by)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{no,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{lastModified,jdbcType=TIMESTAMP}, 
+      #{lastModifiedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.building.ipi.web.system.department.model.SysDepartment" >
+    insert into sys_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="lastModified != null" >
+        last_modified,
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModified != null" >
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.building.ipi.web.system.department.model.SysDepartmentExample" resultType="java.lang.Integer" >
+    select count(*) from sys_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_department
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null" >
+        no = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNumber != null" >
+        serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModified != null" >
+        last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedBy != null" >
+        last_modified_by = #{record.lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_department
+    set id = #{record.id,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      no = #{record.no,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      last_modified_by = #{record.lastModifiedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.building.ipi.web.system.department.model.SysDepartment" >
+    update sys_department
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModified != null" >
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.building.ipi.web.system.department.model.SysDepartment" >
+    update sys_department
+    set pid = #{pid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectPageList" parameterType="com.building.ipi.web.system.department.model.SysDepartmentModel"
+          resultType="com.building.ipi.web.system.department.model.SysDepartmentModel">
+    select s.id,s.pid,s.name,s.`no`,s.phone
+    from sys_department s
+    where 1=1
+    <if test="record.name!=null and record.name!=''">
+      AND s.name like CONCAT('%',#{record.name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="record.pSerialNumber!=null and record.pSerialNumber!=''">
+      AND s.serial_number like CONCAT(#{record.pSerialNumber,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="deptModel.deptId != null and deptModel.deptId != ''">
+      and s.id = #{deptModel.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="deptModel.deptIds != null and deptModel.deptIds.size()&gt;0">
+      and s.id in
+      <foreach collection="deptModel.deptIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+
+    order by s.created
+  </select>
+
+  <select id="selectById" resultType="com.building.ipi.web.system.department.model.SysDepartmentModel">
+    select s.id,s.pid,s.name,s.`no`,s.phone,d.name as pidName,s.serial_number serialNumber
+    from sys_department s left join sys_department d on (s.pid = d.id)
+    where 1=1
+    <if test="id != null and id != ''">
+      and s.id = #{id,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--查询树-->
+  <select id="selectTree" resultType="com.building.ipi.web.common.TreeModel">
+    select s.id,s.pid,s.name,s.serial_number serialNumber
+    from sys_department s
+    where 1=1
+    <if test="deptModel.deptId != null and deptModel.deptId != ''">
+      and s.id = #{deptModel.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="deptModel.deptIds != null and deptModel.deptIds.size()&gt;0">
+      and s.id in
+      <foreach collection="deptModel.deptIds" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    order by s.serial_number
+  </select>
+
+  <!--查询部门树 数据赋权用-->
+  <select id="selectPermissionTree" resultType="com.building.ipi.web.common.TreeModel">
+    select s.id,s.pid,s.name,(case when d.id is null then 'false' else 'true' end) checked
+    from sys_department s left join sys_data_permission d on(s.id=d.dept_id and user_dept_id = #{userDeptId} and d.`type`=#{type})
+    where 1=1
+    <if test="serialNumber != null and serialNumber != ''">
+      AND s.serial_number like concat(#{serialNumber},'%')
+    </if>
+    order by s.serial_number
+  </select>
+
+  <!--查询部门树 用户数据赋权用-->
+  <select id="selectPermissionTreeByUser" resultType="com.building.ipi.web.common.TreeModel">
+    select id,pid,name,checked
+    from (
+    select distinct s.id,s.pid,s.name,s.serial_number,(case when d.id is null then 'false' else 'true' end) checked
+    from sys_department s
+    left join sys_data_permission d
+    on(s.id=d.dept_id and ((user_dept_id = #{deptId} and d.`type`='1') or (user_dept_id = #{userDeptId} and d.`type`='2')))
+    where 1=1
+    <if test="serialNumber != null and serialNumber != ''">
+      AND s.serial_number like concat(#{serialNumber},'%')
+    </if>
+    ) m
+    order by m.serial_number
+  </select>
+
+  <!-- 获取级联序列号 -->
+  <select id="getSerialNumber" resultType="java.lang.String" parameterType="java.lang.String">
+    <choose>
+      <when test="pid != null and pid != ''">
+        select
+        (case when count(s.id)=0
+        then concat(#{pSerialNumber},'001')
+        else max(s.serial_number)+1 end)
+        from sys_department s where s.pid = #{pid}
+      </when>
+      <otherwise>
+        select max(d.serial_number)+1 from sys_department d where d.pid=''
+      </otherwise>
+    </choose>
+  </select>
+
+  <!--更新级联序列号-->
+  <update id="updateSerialNumber" parameterType="java.lang.String">
+    update sys_department
+    set serial_number = concat(#{serialNumberNew}, substring(serial_number,length(#{serialNumberOld}) + 1))
+    where serial_number like concat(#{serialNumberOld},'%')
+  </update>
+
+</mapper>
